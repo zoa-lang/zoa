@@ -59,20 +59,20 @@ let r = InclusiveRange.new(1, 10);
 
 ```zoa
 struct Point {
-    pub x: int,
-    pub y: int,
+    pub x: int = 10;
+    pub y: int;
 
-    pub new = (x, y) -> Point {
+    pub sta new = (x, y) -> Point {
         Point { x, y }
-    }
+    };
 
-    pub from_tuple = (x: (int, int)) -> Point {
+    pub sta from_tuple = (x: (int, int)) -> Point {
         new(x.0, x.1)
-    }
+    };
 
     pub as_tuple = () -> (int, int) {
         (self.x, self.y)
-    }
+    };
 }
 
 let p0 = Point.new(0, 0);
@@ -82,7 +82,42 @@ println($"({p1.x}, {p1.y})");
 type Pointable = Option<Point>
 ```
 
-static 메서드와 멤버 메서드를 구분할 방법이 없어서 `static` 키워드를 추가해봤지만 너무 못생겨서 취소했다. 하지만 이렇게 된다면 static한 필드를 어떻게 나타낼 것인가에 대해 생각해보아야 한다. TODO
+static 메서드와 멤버 메서드를 구분할 방법이 없어서 `static` 키워드를 추가해봤지만 너무 못생겨서 취소했다. 하지만 이렇게 된다면 static한 필드를 어떻게 나타낼 것인가에 대해 생각해보아야 한다.
+
+인터페이스와 위임은 다음처럼
+
+```zoa
+// all fileds are public
+trait Organism {
+    name: str;
+    
+    sta new: () -> Self;
+    say_name: () -> ();
+}
+
+struct Human : Organism {
+    pub name: str;
+
+    pub sta new = () -> Human {
+        new("")
+    }
+
+    pub sta new = (name: str) -> Human {
+        Human { name }
+    }
+
+    pub say_name = () {
+        println($"my name is {self.name}!!!");
+    };
+}
+
+let org: <Organism> = Human;
+let human = org.new();
+human.say_name();
+```
+
+trait와 struct을 구분할 수 있는 컨벤션이 있으면 좋겠다. TODO
+enum의 멤버 메서드에 대해 생각 안했다. TODO (확장 메서드 기능 사용?)
 
 원래는 두개 이상의 타입 A, B 등에 대해서 `A | B` 와 같은 타입을 생각했었는데 `match` 신택스를 사용한 타입 매칭에서 어떻게 해야 할지 잘 모르겠더라.
 
@@ -90,7 +125,7 @@ static 메서드와 멤버 메서드를 구분할 방법이 없어서 `static` �
 `A | B` 와 같은 형태는 `enum` 과 방식은 같지만 좀 더 위험하고 불편한 타입이라고 생각되었다. 생각했던 두개의 모양은 다음과 같다.
 
 ```
-type Optional<T> = T | ()
+type Optional<T> = T | ();
 ```
 
 ```
@@ -119,7 +154,7 @@ let a: int = 3; // a: int
 ```zoa
 let add = (a: int, b: int) -> int {
     a + b
-}
+};
 
 [1, 2, 3].fold(0, (a, b) { a + b });
 [1, 2, 3].fold(0, (a, b) -> int | () { a + b });
@@ -179,7 +214,7 @@ for i in 1..10 {
 let a = 10;
 let with_side_effects = () {
     a++
-}
+};
 
 // invalid
 #assert(with_side_effects() > 0);
@@ -189,7 +224,7 @@ let with_side_effects = () {
 
 ```zoa
 // valid, because is_valid function is pure
-let is_valid = (a) { a > 0 }
+let is_valid = (a) { a > 0 };
 #assert((1..10).map(is_valid).all());
 
 // valid
@@ -197,7 +232,7 @@ let is_valid = (a) { a > 0 }
     let a = 10;
     let with_side_effects = () {
         a++
-    }
+    };
 
     with_side_effects() > 10
 })
