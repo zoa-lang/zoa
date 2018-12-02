@@ -61,7 +61,23 @@ let r = InclusiveRange.new(1, 10);
 struct Point {
     pub x: int,
     pub y: int,
+
+    pub static new = (x, y) -> Point {
+        Point { x, y }
+    }
+
+    pub static from_tuple = (x: (int, int)) -> Point {
+        new(x.0, x.1)
+    }
+
+    pub as_tuple = () -> (int, int) {
+        (self.x, self.y)
+    }
 }
+
+let p0 = Point.new(0, 0);
+let p1 = Point.from(p0.as_tuple());
+println($"({p1.x}, {p1.y})");
 
 type Pointable = Option<Point>
 ```
