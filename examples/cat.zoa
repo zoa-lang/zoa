@@ -1,0 +1,7 @@
+main = () -> int {
+    let input: Result<str, str>  = read_line?();
+    match input {
+        Ok(s) -> println!(s),
+        Err(e) -> eprintln!($"failed to get input: {e}");
+    }
+}

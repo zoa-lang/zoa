@@ -1,0 +1,15 @@
+format_s = (i) {
+    if i == 1 { "" } else { "s" }
+}
+
+main = () {
+    for i in (1..100).rev() {
+        print($"{i} bottle{format_s(i)} of beer on the wall, {i} bottle{format_s(i)} of beer.");
+        if i != 1 {
+            print($"Take one down, pass it around, {i - 1} bottle{format_s(i)} of beer on the wall...");
+        }
+        else {
+            print("Take one down, pass it around, no more beer on the wall.");
+        }
+    }
+}
