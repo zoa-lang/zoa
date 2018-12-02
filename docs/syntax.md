@@ -62,11 +62,11 @@ struct Point {
     pub x: int,
     pub y: int,
 
-    pub static new = (x, y) -> Point {
+    pub new = (x, y) -> Point {
         Point { x, y }
     }
 
-    pub static from_tuple = (x: (int, int)) -> Point {
+    pub from_tuple = (x: (int, int)) -> Point {
         new(x.0, x.1)
     }
 
@@ -81,6 +81,8 @@ println($"({p1.x}, {p1.y})");
 
 type Pointable = Option<Point>
 ```
+
+static 메서드와 멤버 메서드를 구분할 방법이 없어서 `static` 키워드를 추가해봤지만 너무 못생겨서 취소했다. 하지만 이렇게 된다면 static한 필드를 어떻게 나타낼 것인가에 대해 생각해보아야 한다. TODO
 
 원래는 두개 이상의 타입 A, B 등에 대해서 `A | B` 와 같은 타입을 생각했었는데 `match` 신택스를 사용한 타입 매칭에서 어떻게 해야 할지 잘 모르겠더라.
 
