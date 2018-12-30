@@ -157,7 +157,7 @@ let add = (a: int, b: int) -> int {
 };
 
 [1, 2, 3].fold(0, (a, b) { a + b });
-[1, 2, 3].fold(0, (a, b) -> int | () { a + b });
+[1, 2, 3].fold(0, (a, b) -> int? { a + b });
 ```
 
 ## 모듈
@@ -187,55 +187,4 @@ struct B {
 }
 ```
 
-## [매크로](/docs/macro.md)
-
-> 아래 설명은 이제 맞는 말이 아닙니다^^ 그치만 다음에 참고하게끔 남겨두겟음 클로져 없는 컴파일타임 어썰션은 큰 의미가 없다
-
-컴파일 타임 코드 치환 가장 기본적인 실행 `#run` 매크로
-
-```zoa
-let compile_time_random_value = #run {
-    rand()
-};
-```
-
-컴파일 타임 어썰션 `#assert` 매크로
-
-```zoa
-#assert_eq(3, i);
-```
-
-물론 run이나 assert 매크로 안에 클로져와 같은 바깥 변수 캡쳐는 허용되지 않는다. 매크로 파라미터에 재귀적으로 코드를 검사해, 사이드 이펙트가 있는 코드가 포함되면 컴파일이 되지 않는다. 다음과 같은 코드는 컴파일되지 않는다.
-
-```zoa
-// invalid
-for i in 1..10 {
-    #assert(i > 0);
-}
-
-let a = 10;
-let with_side_effects = () {
-    a++
-};
-
-// invalid
-#assert(with_side_effects() > 0);
-```
-
-대신 다음과 같은 코드는 컴파일된다.
-
-```zoa
-// valid, because is_valid function is pure
-let is_valid = (a) { a > 0 };
-#assert((1..10).map(is_valid).all());
-
-// valid
-#assert({
-    let a = 10;
-    let with_side_effects = () {
-        a++
-    };
-
-    with_side_effects() > 10
-})
-```
+## [매크로](/docs/syntax.md)
