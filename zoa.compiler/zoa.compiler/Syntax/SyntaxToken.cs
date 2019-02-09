@@ -1,18 +1,14 @@
-﻿namespace zoa.compiler.Syntax
-{
-    public class SyntaxToken
-    {
+﻿namespace zoa.compiler.Syntax {
+    public class SyntaxToken {
         public SyntaxKind TokenType { get; }
         public int FullWidth { get; private set; }
 
-        internal SyntaxToken(SyntaxKind type)
-        {
+        internal SyntaxToken(SyntaxKind type) {
             TokenType = type;
             FullWidth = Text.Length;
         }
 
-        protected SyntaxToken(SyntaxKind type, int width)
-        {
+        protected SyntaxToken(SyntaxKind type, int width) {
             TokenType = type;
             FullWidth = width;
         }
@@ -20,12 +16,9 @@
         public virtual string Text
             => SyntaxFactory.GetText(TokenType);
 
-        public virtual object Value
-        {
-            get
-            {
-                switch (TokenType)
-                {
+        public virtual object Value {
+            get {
+                switch (TokenType) {
                     case SyntaxKind.TrueKeyword:
                         return true;
                     case SyntaxKind.FalseKeyword:
@@ -42,8 +35,7 @@
         internal static SyntaxToken Identifier(string name)
             => new SyntaxTokenIdentifier(SyntaxKind.Identifier, name);
 
-        public override bool Equals(object obj)
-        {
+        public override bool Equals(object obj) {
             if (!(obj is SyntaxToken tok))
                 return false;
             if (tok.TokenType != TokenType)

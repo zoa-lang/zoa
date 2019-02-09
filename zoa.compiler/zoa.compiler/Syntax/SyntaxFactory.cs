@@ -2,28 +2,22 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace zoa.compiler.Syntax
-{
-    public static class SyntaxFactory
-    {
+namespace zoa.compiler.Syntax {
+    public static class SyntaxFactory {
         private static SyntaxKind FirstToken = SyntaxKind.KnownKeywordStart;
         private static SyntaxKind LastToken = SyntaxKind.KnownKeywordEnd;
         private static SyntaxToken[] _tokens;
 
-        static SyntaxFactory()
-        {
+        static SyntaxFactory() {
             _tokens = new SyntaxToken[LastToken - FirstToken + 1];
 
-            for (var typ = FirstToken; typ <= LastToken; typ++)
-            {
+            for (var typ = FirstToken; typ <= LastToken; typ++) {
                 _tokens[typ - FirstToken] = new SyntaxToken(typ);
             }
         }
 
-        public static string GetText(SyntaxKind type)
-        {
-            switch (type)
-            {
+        public static string GetText(SyntaxKind type) {
+            switch (type) {
                 case SyntaxKind.PlusToken:
                     return "+";
                 case SyntaxKind.MinusToken:

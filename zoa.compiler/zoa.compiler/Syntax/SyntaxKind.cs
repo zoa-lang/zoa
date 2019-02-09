@@ -1,7 +1,5 @@
-﻿namespace zoa.compiler.Syntax
-{
-    public enum SyntaxKind
-    {
+﻿namespace zoa.compiler.Syntax {
+    public enum SyntaxKind {
         None = 0,
         IntegerLiteral,
         RealLiteral,
