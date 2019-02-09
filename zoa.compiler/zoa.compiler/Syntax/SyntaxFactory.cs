@@ -101,11 +101,23 @@ namespace zoa.compiler.Syntax {
         public static SyntaxToken KeywordToken(SyntaxKind type)
             => _tokens[type - FirstToken];
 
+        public static SyntaxToken Literal(int value)
+            => SyntaxToken.WithValue(SyntaxKind.IntegerLiteral, value.ToString(), value);
+
         public static SyntaxToken Literal(string text, int value)
             => SyntaxToken.WithValue(SyntaxKind.IntegerLiteral, text, value);
 
+        public static SyntaxToken Literal(float value)
+            => SyntaxToken.WithValue(SyntaxKind.RealLiteral, value.ToString(), value);
+
         public static SyntaxToken Literal(string text, float value)
             => SyntaxToken.WithValue(SyntaxKind.RealLiteral, text, value);
+
+        public static SyntaxToken Literal(char value)
+            => SyntaxToken.WithValue(SyntaxKind.CharLiteral, value.ToString(), value);
+
+        public static SyntaxToken Literal(string text, char value)
+            => SyntaxToken.WithValue(SyntaxKind.CharLiteral, text, value);
 
         public static SyntaxToken Literal(string value)
             => SyntaxToken.WithValue(SyntaxKind.StringLiteral, value, value);

@@ -3,6 +3,7 @@
         None = 0,
         IntegerLiteral,
         RealLiteral,
+        CharLiteral,
         StringLiteral,
 
         Identifier,
@@ -44,7 +45,7 @@
         DollarToken, // $
         TrueKeyword, // true
         FalseKeyword, // false
-        DotKeyword, // .
+        DotToken, // .
 
         LetKeyword,
         ImportKeyword,
