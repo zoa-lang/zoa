@@ -56,14 +56,12 @@ namespace zoa.compiler.Syntax {
                     return "{";
                 case SyntaxKind.RBraceToken:
                     return "}";
-                case SyntaxKind.LTypeToken:
-                    return "<";
-                case SyntaxKind.RTypeToken:
-                    return ">";
                 case SyntaxKind.RArrowToken:
                     return "->";
                 case SyntaxKind.DollarToken:
                     return "$";
+                case SyntaxKind.DotToken:
+                    return ".";
                 case SyntaxKind.TrueKeyword:
                     return "true";
                 case SyntaxKind.FalseKeyword:
@@ -74,7 +72,7 @@ namespace zoa.compiler.Syntax {
                 case SyntaxKind.ImportKeyword:
                     return "import";
                 case SyntaxKind.ModuleKeyword:
-                    return "module";
+                    return "mod";
                 case SyntaxKind.ReturnKeyword:
                     return "return";
                 case SyntaxKind.IfKeyword:

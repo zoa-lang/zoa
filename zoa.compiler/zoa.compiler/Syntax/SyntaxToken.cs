@@ -52,5 +52,9 @@
 
         public override int GetHashCode()
             => Text.GetHashCode();
+
+        public override string ToString() {
+            return $"{TokenType} {Text}";
+        }
     }
 }

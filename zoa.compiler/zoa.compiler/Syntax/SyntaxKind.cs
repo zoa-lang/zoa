@@ -38,9 +38,6 @@
         RBracketToken, // ]
         LBraceToken, // {
         RBraceToken, // }
-        // LTypeToken == LessToken ?
-        LTypeToken, // <
-        RTypeToken, // >
         RArrowToken, // ->
         DollarToken, // $
         TrueKeyword, // true

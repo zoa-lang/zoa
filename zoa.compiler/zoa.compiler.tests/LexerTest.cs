@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using zoa.compiler.Parser;
 using zoa.compiler.Syntax;
@@ -11,8 +12,11 @@ namespace zoa.compiler.tests {
         static void AssertLex(string code, params T[] tokens) {
             var lexer = new Lexer(code);
             int i = 0;
-            while (!lexer.IsEOF)
+            while (!lexer.IsEOF) {
+                if (i == tokens.Length)
+                    Assert.Fail("Different tokens length");
                 Assert.AreEqual(tokens[i++], lexer.Lex());
+            }
 
             Assert.AreEqual(i, tokens.Length, "Different tokens length");
         }
@@ -41,13 +45,13 @@ namespace zoa.compiler.tests {
             AssertLex("3.14", Literal("3.14", 3.14f));
             AssertLex("'a'", Literal('a'));
             AssertLex("' '", Literal(' '));
-            AssertLex("'\n'", Literal('\n'));
-            AssertLex("'\\'", Literal('\\'));
-            AssertLex("'\''", Literal('\''));
+            AssertLex("'\\n'", Literal('\n'));
+            AssertLex("'\\\\'", Literal('\\'));
+            AssertLex("'\\''", Literal('\''));
             AssertLex("\"\"", Literal(""));
             AssertLex("\"abc\"", Literal("abc"));
             AssertLex("\"h e l l o 3 \"", Literal("h e l l o 3 "));
-            AssertLex("\"\n\t\\\\\"\"", Literal("\n\t\\\\\""));
+            AssertLex("\"\\n\\t\\\"\"", Literal("\n\t\""));
         }
 
         [TestMethod]
@@ -56,6 +60,10 @@ namespace zoa.compiler.tests {
             AssertLexError("1.a");
             AssertLexError("'ab'");
             AssertLexError("''");
+            AssertLexError("'\n'");
+            AssertLexError("'\r'");
+            AssertLexError("'\t'");
+            AssertLexError("'\\'");
             AssertLexError("\"\\\"");
             AssertLexError("\"\"\"");
             AssertLexError("\"\n\"");
@@ -82,13 +90,22 @@ namespace zoa.compiler.tests {
             AssertLex("]", K(RBracketToken));
             AssertLex("{", K(LBraceToken));
             AssertLex("}", K(RBraceToken));
-            AssertLex("<", K(LTypeToken));
-            AssertLex(">", K(RTypeToken));
             AssertLex("->", K(RArrowToken));
             AssertLex("$", K(DollarToken));
             AssertLex("true", K(TrueKeyword));
             AssertLex("false", K(FalseKeyword));
-            AssertLex(".", K(DotToken));
+            AssertLex("let", K(LetKeyword));
+            AssertLex("import", K(ImportKeyword));
+            AssertLex("mod", K(ModuleKeyword));
+            AssertLex("return", K(ReturnKeyword));
+            AssertLex("if", K(IfKeyword));
+            AssertLex("else", K(ElseKeyword));
+            AssertLex("while", K(WhileKeyword));
+            AssertLex("for", K(ForKeyword));
+            AssertLex("break", K(BreakKeyword));
+            AssertLex("continue", K(ContinueKeyword));
+            AssertLex("struct", K(StructKeyword));
+            AssertLex("trait", K(TraitKeyword));
         }
 
         [TestMethod]
