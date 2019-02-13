@@ -99,9 +99,5 @@ namespace zoa.compiler.tests {
             AssertLex("- > ->", K(MinusToken), K(GreaterToken), K(RArrowToken));
             AssertLex("-><-1", K(RArrowToken), K(LessToken), K(MinusToken), Literal(1));
         }
-
-        [TestMethod]
-        public void TestLexMathExpr() {
-        }
     }
 }
