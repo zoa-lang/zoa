@@ -43,6 +43,7 @@
         TrueKeyword, // true
         FalseKeyword, // false
         DotToken, // .
+        SemicolonToken, // ;
 
         LetKeyword,
         ImportKeyword,

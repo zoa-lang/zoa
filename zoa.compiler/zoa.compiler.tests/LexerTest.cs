@@ -92,6 +92,8 @@ namespace zoa.compiler.tests {
             AssertLex("}", K(RBraceToken));
             AssertLex("->", K(RArrowToken));
             AssertLex("$", K(DollarToken));
+            AssertLex(".", K(DotToken));
+            AssertLex(";", K(SemicolonToken));
             AssertLex("true", K(TrueKeyword));
             AssertLex("false", K(FalseKeyword));
             AssertLex("let", K(LetKeyword));

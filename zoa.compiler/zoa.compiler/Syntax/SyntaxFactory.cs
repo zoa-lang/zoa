@@ -62,6 +62,8 @@ namespace zoa.compiler.Syntax {
                     return "$";
                 case SyntaxKind.DotToken:
                     return ".";
+                case SyntaxKind.SemicolonToken:
+                    return ";";
                 case SyntaxKind.TrueKeyword:
                     return "true";
                 case SyntaxKind.FalseKeyword:

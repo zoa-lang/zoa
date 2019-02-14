@@ -63,6 +63,7 @@ namespace zoa.compiler.Parser {
                 case '}':
                 case '$':
                 case '.':
+                case ';':
                     return LexOperator();
                 case '0':
                 case '1':
@@ -149,6 +150,8 @@ namespace zoa.compiler.Parser {
                     return KeywordToken(DollarToken);
                 case '.':
                     return KeywordToken(DotToken);
+                case ';':
+                    return KeywordToken(SemicolonToken);
                 default:
                     throw Error($"Unexpected char {top}");
             }
